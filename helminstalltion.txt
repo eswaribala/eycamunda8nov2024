@@ -1,0 +1,20 @@
+#run this command from powershell
+
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+
+
+#install helm 
+
+choco install kubernetes-helm
+
+
+#Check helm version
+
+helm version
+
+#check helm repository list
+
+helm repo list
+
+#Add repository
+helm repo add bitnami https://charts.bitnami.com/bitnami
