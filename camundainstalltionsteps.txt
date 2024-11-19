@@ -1,0 +1,5 @@
+1.Keep Values.yaml ready
+2. Deploy secrets.yaml
+3. helm repo add camunda https://helm.camunda.io
+4. helm repo update  
+5. helm install camunda camunda/camunda-platform -f values.yaml
