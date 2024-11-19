@@ -1,0 +1,122 @@
+global:
+  license:
+    ## @param global.license.key if set, it will be exposed as "CAMUNDA_LICENSE_KEY" in all components, consumable as ENV_VAR.
+    key: None
+    ## @param global.license.existingSecret you can provide an existing secret name for Camunda license secret.
+    ##existingSecret: identity-secret-for-components
+    ## @param global.license.existingSecretKey you can provide the key within the existing secret object for Camunda license key.
+    ##existingSecretKey: 
+  postgresql:
+    replication:
+      enabled: false
+    extraEnvVars:
+      - name: POSTGRESQL_REPLICATION_USE_PASSFILE
+        value: "no"
+    enabled: false
+    auth:
+      username: camunda
+      password: camunda
+      database: camunda
+
+  identity:
+    auth:
+      operate:
+        existingSecret:
+          name: identity-secret-for-components
+      tasklist:
+        existingSecret:
+          name: identity-secret-for-components
+      optimize:
+        existingSecret:
+          name: identity-secret-for-components
+      webModeler:
+        existingSecret:
+          name: identity-secret-for-components
+      connectors:
+        existingSecret:
+          name: identity-secret-for-components
+      console:
+        existingSecret:
+          name: identity-secret-for-components
+      zeebe:
+        existingSecret:
+          name: identity-secret-for-components
+       
+
+# Disable identity as part of the Camunda core
+identity:
+  enabled: true
+  auth:  
+    createAdminUser: true
+    adminUser: admin
+    adminPassword: admin
+tasklist:
+  enabled: true
+  
+# Disable keycloak
+identityKeycloak:
+  enabled: true
+  auth:  
+    createAdminUser: true
+    adminUser: admin
+    adminPassword: admin
+optimize:
+  enabled: false
+    
+operate:
+  enabled: true
+  
+   
+#postgres
+postgresql:
+  enabled: false
+  #postgresqlPassword: "camunda"
+  #postgresqlDatabase: "camunda"
+  resources:
+    requests:
+      memory: "1024Mi"
+      cpu: "1200m"
+    limits:
+      memory: "1Gi"
+      cpu: "2000m"
+
+  # Persistence settings
+  persistence:
+    enabled: true
+    size: 1Gi                  # Size of the persistent volume
+    storageClass: standard     # Specify the storage class to use, if required
+
+  # Security and access
+  service:
+    port: 5432                 # The port for PostgreSQL
+  securityContext:
+    runAsUser: 999             # PostgreSQL default user
+    fsGroup: 999               # PostgreSQL default group
+
+
+# Reduce for Zeebe and Gateway the configured replicas and with that the required resources
+# to get it running locally
+zeebe:
+  
+    
+  clusterSize: 1
+  partitionCount: 1
+  replicationFactor: 1
+  pvcSize: 1Gi
+
+zeebeGateway:
+  replicas: 1
+
+connectors:
+  enabled: true
+ 
+   
+  inbound:
+    mode: disabled
+
+elasticsearch:
+  master:
+    replicaCount: 1
+    # Request smaller persistent volumes.
+    persistence:
+      size: 1Gi
