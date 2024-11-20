@@ -21,7 +21,7 @@ public class OrderController {
     private ZeebeClient zeebeClient;
 
     @PostMapping("/v1.0")
-    public ResponseEntity<GenericResponse> startProcess(@RequestBody Map<String,Object> variables){
+    public ResponseEntity<GenericResponse> startOrderProcess(@RequestBody Map<String,Object> variables){
         zeebeClient
                 .newCreateInstanceCommand()
                 .bpmnProcessId(ProcessConstant.BPMN_PROCESS_ID)
