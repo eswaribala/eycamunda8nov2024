@@ -9,4 +9,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class GenericResponse<T> {
     private T object;
+
 }

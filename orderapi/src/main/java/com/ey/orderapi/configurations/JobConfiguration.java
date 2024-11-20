@@ -17,6 +17,7 @@ import java.util.Map;
 public class JobConfiguration {
     //@Autowired
    // private ZeebeClient zeebeClient;
+    private Map<String,Object> map;
     @JobWorker(type = "generateOrderId",autoComplete = false)
     public Map<String,Long> handleOrderIdGeneration(final JobClient jobClient, ActivatedJob activatedJob){
         Faker faker=new Faker();
@@ -31,4 +32,19 @@ public class JobConfiguration {
         });
      return map;
     }
+
+    @JobWorker(type = "showOrderId",autoComplete = false)
+    public void showGeneratedId(final JobClient jobClient, ActivatedJob activatedJob){
+       map= activatedJob.getVariablesAsMap();
+       String orderId=map.get("OrderId").toString();
+       log.info("Generated Order No"+orderId);
+        jobClient.newCompleteCommand(activatedJob.getKey())
+
+                .send()
+                .exceptionally((throwable)->{
+                    throw new RuntimeException("Job not found");
+                });
+    }
+
+
 }
