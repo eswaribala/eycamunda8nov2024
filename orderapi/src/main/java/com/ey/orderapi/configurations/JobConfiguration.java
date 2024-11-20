@@ -20,8 +20,9 @@ public class JobConfiguration {
     @JobWorker(type = "generateOrderId",autoComplete = false)
     public Map<String,Long> handleOrderIdGeneration(final JobClient jobClient, ActivatedJob activatedJob){
         Faker faker=new Faker();
+        log.info("Job Key"+activatedJob.getKey());
         Map<String,Long> map=new HashMap<>();
-        map.put("OrderId",faker.number().numberBetween(1000L,10000L));
+        map.put("OrderId",faker.number().numberBetween(1000L,1000000L));
         jobClient.newCompleteCommand(activatedJob.getKey())
                 .variables(map)
                 .send()
