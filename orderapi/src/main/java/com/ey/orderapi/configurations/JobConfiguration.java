@@ -15,15 +15,13 @@ import java.util.Map;
 @Configuration
 @Slf4j
 public class JobConfiguration {
-
     //@Autowired
    // private ZeebeClient zeebeClient;
-
     @JobWorker(type = "generateOrderId",autoComplete = false)
-    public Map<String,Integer> handleOrderIdGeneration(final JobClient jobClient, ActivatedJob activatedJob){
+    public Map<String,Long> handleOrderIdGeneration(final JobClient jobClient, ActivatedJob activatedJob){
         Faker faker=new Faker();
-        Map<String,Integer> map=new HashMap<>();
-        map.put("OrderId",faker.random().nextInt(1000,10000));
+        Map<String,Long> map=new HashMap<>();
+        map.put("OrderId",faker.number().numberBetween(1000L,10000L));
         jobClient.newCompleteCommand(activatedJob.getKey())
                 .variables(map)
                 .send()
