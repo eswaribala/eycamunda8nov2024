@@ -1,15 +1,98 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:color="http://www.omg.org/spec/BPMN/non-normative/color/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0i47v7p" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.29.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.6.0">
   <bpmn:process id="Process_Order" name="Order Process" isExecutable="true">
+    <bpmn:extensionElements>
+      <zeebe:userTaskForm id="UserTaskForm_277mjb0">{
+  "components": [
+    {
+      "text": "Add Items To Cart",
+      "type": "text",
+      "layout": {
+        "row": "Row_1bf9ncu",
+        "columns": null
+      },
+      "id": "Field_094xsqp"
+    },
+    {
+      "label": "Select The Product",
+      "values": [
+        {
+          "label": "TV",
+          "value": "TV"
+        },
+        {
+          "label": "Washing Machine",
+          "value": "Washing Machine"
+        },
+        {
+          "label": "Camera",
+          "value": "Camera"
+        }
+      ],
+      "type": "select",
+      "layout": {
+        "row": "Row_0er7f8d",
+        "columns": null
+      },
+      "id": "Field_09congt",
+      "key": "select_product",
+      "defaultValue": "TV",
+      "searchable": false,
+      "readonly": false,
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "label": "Enter Quantity",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1ff454r",
+        "columns": null
+      },
+      "id": "Field_19hkrh2",
+      "key": "textfield_quantity",
+      "defaultValue": "0",
+      "validate": {
+        "required": true,
+        "minLength": 1,
+        "maxLength": 25,
+        "pattern": "[0-9]{1,2}"
+      }
+    },
+    {
+      "label": "Confirm The Selection",
+      "type": "checkbox",
+      "layout": {
+        "row": "Row_1qajklc",
+        "columns": null
+      },
+      "id": "Field_0oqzod6",
+      "key": "checkbox_confirm",
+      "validate": {
+        "required": true
+      }
+    }
+  ],
+  "type": "default",
+  "id": "Form_Cart",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.6.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.29.0"
+  },
+  "schemaVersion": 17
+}</zeebe:userTaskForm>
+    </bpmn:extensionElements>
     <bpmn:startEvent id="StartEvent_1" name="Start">
-      <bpmn:outgoing>Flow_026rqjn</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0d193cq</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:sequenceFlow id="Flow_026rqjn" sourceRef="StartEvent_1" targetRef="Activity_OrderId" />
     <bpmn:serviceTask id="Activity_OrderId" name="Generate Order Id">
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generateOrderId" />
       </bpmn:extensionElements>
-      <bpmn:incoming>Flow_026rqjn</bpmn:incoming>
+      <bpmn:incoming>Flow_0uvp233</bpmn:incoming>
       <bpmn:outgoing>Flow_1fu1ns1</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:endEvent id="Event_1xkc8ba" name="End">
@@ -24,10 +107,39 @@
       <bpmn:incoming>Flow_1fu1ns1</bpmn:incoming>
       <bpmn:outgoing>Flow_0p65mfr</bpmn:outgoing>
     </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_0d193cq" sourceRef="StartEvent_1" targetRef="Activity_AddProductToCart" />
+    <bpmn:userTask id="Activity_AddProductToCart" name="Add Product To Cart">
+      <bpmn:extensionElements>
+        <zeebe:formDefinition formKey="camunda-forms:bpmn:UserTaskForm_277mjb0" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0d193cq</bpmn:incoming>
+      <bpmn:outgoing>Flow_1wl1z16</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_1wl1z16" sourceRef="Activity_AddProductToCart" targetRef="Activity_computeTotalCost" />
+    <bpmn:sequenceFlow id="Flow_0uvp233" sourceRef="Activity_computeTotalCost" targetRef="Activity_OrderId" />
+    <bpmn:serviceTask id="Activity_computeTotalCost" name="Compute Total Cost">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="computeTotalCost" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1wl1z16</bpmn:incoming>
+      <bpmn:outgoing>Flow_0uvp233</bpmn:outgoing>
+    </bpmn:serviceTask>
     <bpmn:textAnnotation id="TextAnnotation_125aotg">
       <bpmn:text>Generate Order Id (Code)</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:association id="Association_0kxdodf" associationDirection="None" sourceRef="Activity_OrderId" targetRef="TextAnnotation_125aotg" />
+    <bpmn:textAnnotation id="TextAnnotation_1xzcrwz">
+      <bpmn:text>Show Order Id(code)</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0chcu5v" associationDirection="None" sourceRef="Activity_ShowOrderId" targetRef="TextAnnotation_1xzcrwz" />
+    <bpmn:textAnnotation id="TextAnnotation_0e1zmox">
+      <bpmn:text>User will enter product details</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_09xliks" associationDirection="None" sourceRef="Activity_AddProductToCart" targetRef="TextAnnotation_0e1zmox" />
+    <bpmn:textAnnotation id="TextAnnotation_1x8g9h4">
+      <bpmn:text>Product Cost Calculation (Code)</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1uhbp2u" associationDirection="None" sourceRef="Activity_computeTotalCost" targetRef="TextAnnotation_1x8g9h4" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_Order">
@@ -37,40 +149,80 @@
           <dc:Bounds x="188" y="245" width="25" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1beu4i1_di" bpmnElement="Activity_OrderId" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
-        <dc:Bounds x="270" y="180" width="100" height="80" />
+      <bpmndi:BPMNShape id="Activity_1a0mt9v_di" bpmnElement="Activity_AddProductToCart" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="350" y="180" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1xkc8ba_di" bpmnElement="Event_1xkc8ba" bioc:stroke="#831311" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#831311">
-        <dc:Bounds x="622" y="202" width="36" height="36" />
+        <dc:Bounds x="1092" y="202" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="630" y="245" width="20" height="14" />
+          <dc:Bounds x="1100" y="245" width="20" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1beu4i1_di" bpmnElement="Activity_OrderId" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
+        <dc:Bounds x="710" y="180" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0gfupmb_di" bpmnElement="Activity_ShowOrderId" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
-        <dc:Bounds x="430" y="180" width="100" height="80" />
+        <dc:Bounds x="880" y="180" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="TextAnnotation_125aotg_di" bpmnElement="TextAnnotation_125aotg">
-        <dc:Bounds x="310" y="80" width="100" height="41" />
+      <bpmndi:BPMNShape id="Activity_1887129_di" bpmnElement="Activity_computeTotalCost" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
+        <dc:Bounds x="530" y="180" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Flow_026rqjn_di" bpmnElement="Flow_026rqjn">
-        <di:waypoint x="218" y="220" />
-        <di:waypoint x="270" y="220" />
+      <bpmndi:BPMNEdge id="Association_1uhbp2u_di" bpmnElement="Association_1uhbp2u">
+        <di:waypoint x="583" y="180" />
+        <di:waypoint x="587" y="108" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Association_0kxdodf_di" bpmnElement="Association_0kxdodf">
-        <di:waypoint x="333" y="180" />
-        <di:waypoint x="352" y="121" />
+        <di:waypoint x="765" y="180" />
+        <di:waypoint x="776" y="91" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0chcu5v_di" bpmnElement="Association_0chcu5v">
+        <di:waypoint x="938" y="180" />
+        <di:waypoint x="956" y="91" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_0e1zmox_di" bpmnElement="TextAnnotation_0e1zmox" bioc:stroke="#5b176d" bioc:fill="#e1bee7" color:background-color="#e1bee7" color:border-color="#5b176d">
+        <dc:Bounds x="340" y="60" width="100" height="41" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1fu1ns1_di" bpmnElement="Flow_1fu1ns1">
-        <di:waypoint x="370" y="220" />
-        <di:waypoint x="430" y="220" />
+        <di:waypoint x="810" y="220" />
+        <di:waypoint x="880" y="220" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0p65mfr_di" bpmnElement="Flow_0p65mfr">
-        <di:waypoint x="530" y="220" />
-        <di:waypoint x="622" y="220" />
+        <di:waypoint x="980" y="220" />
+        <di:waypoint x="1092" y="220" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0d193cq_di" bpmnElement="Flow_0d193cq">
+        <di:waypoint x="218" y="220" />
+        <di:waypoint x="350" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_09xliks_di" bpmnElement="Association_09xliks">
+        <di:waypoint x="397" y="180" />
+        <di:waypoint x="392" y="101" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1wl1z16_di" bpmnElement="Flow_1wl1z16">
+        <di:waypoint x="450" y="220" />
+        <di:waypoint x="530" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0uvp233_di" bpmnElement="Flow_0uvp233">
+        <di:waypoint x="630" y="220" />
+        <di:waypoint x="710" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_1x8g9h4_di" bpmnElement="TextAnnotation_1x8g9h4" bioc:stroke="#5b176d" bioc:fill="#e1bee7" color:background-color="#e1bee7" color:border-color="#5b176d">
+        <dc:Bounds x="540" y="53" width="100" height="55" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_125aotg_di" bpmnElement="TextAnnotation_125aotg" bioc:stroke="#5b176d" bioc:fill="#e1bee7" color:background-color="#e1bee7" color:border-color="#5b176d">
+        <dc:Bounds x="730" y="50" width="100" height="41" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1xzcrwz_di" bpmnElement="TextAnnotation_1xzcrwz" bioc:stroke="#5b176d" bioc:fill="#e1bee7" color:background-color="#e1bee7" color:border-color="#5b176d">
+        <dc:Bounds x="910" y="50" width="100" height="41" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>
