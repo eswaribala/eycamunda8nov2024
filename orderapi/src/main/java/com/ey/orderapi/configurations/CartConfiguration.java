@@ -15,8 +15,8 @@ import java.util.Map;
 @Slf4j
 public class CartConfiguration {
 
-    @Autowired
-    private ZeebeClient zeebeClient;
+   // @Autowired
+   // private ZeebeClient zeebeClient;
     private Map<String,Object> map;
     @JobWorker(type = "computeTotalCost",autoComplete = false)
     public Map<String,Long> computeCostOfTheProduct(final JobClient jobClient, ActivatedJob activatedJob){
