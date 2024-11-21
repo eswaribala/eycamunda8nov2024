@@ -68,6 +68,19 @@
       "validate": {
         "required": true
       }
+    },
+    {
+      "label": "Would you like to add more?",
+      "type": "checkbox",
+      "layout": {
+        "row": "Row_0gxuxhv",
+        "columns": null
+      },
+      "id": "Field_1xgwj3g",
+      "key": "checkbox_continue",
+      "validate": {
+        "required": true
+      }
     }
   ],
   "type": "default",
