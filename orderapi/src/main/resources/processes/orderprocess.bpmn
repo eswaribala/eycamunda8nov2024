@@ -158,6 +158,24 @@
       <bpmn:incoming>Flow_0qnpknp</bpmn:incoming>
       <bpmn:outgoing>Flow_1u0kkmp</bpmn:outgoing>
     </bpmn:serviceTask>
+    <bpmn:subProcess id="Activity_1a8hesl" triggeredByEvent="true">
+      <bpmn:startEvent id="Event_Inventory" name="Inventory Message">
+        <bpmn:outgoing>Flow_1hyxiba</bpmn:outgoing>
+        <bpmn:messageEventDefinition id="MessageEventDefinition_11igeb1" messageRef="Message_3p39c64" />
+      </bpmn:startEvent>
+      <bpmn:sequenceFlow id="Flow_1hyxiba" sourceRef="Event_Inventory" targetRef="Activity_dbstore" />
+      <bpmn:serviceTask id="Activity_dbstore" name="Store Order in DB">
+        <bpmn:extensionElements>
+          <zeebe:taskDefinition type="dbstore" />
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_1hyxiba</bpmn:incoming>
+        <bpmn:outgoing>Flow_1pgqbzo</bpmn:outgoing>
+      </bpmn:serviceTask>
+      <bpmn:endEvent id="Event_1g627sy">
+        <bpmn:incoming>Flow_1pgqbzo</bpmn:incoming>
+      </bpmn:endEvent>
+      <bpmn:sequenceFlow id="Flow_1pgqbzo" sourceRef="Activity_dbstore" targetRef="Event_1g627sy" />
+    </bpmn:subProcess>
     <bpmn:textAnnotation id="TextAnnotation_125aotg">
       <bpmn:text>Generate Order Id (Code)</bpmn:text>
     </bpmn:textAnnotation>
@@ -175,6 +193,11 @@
     </bpmn:textAnnotation>
     <bpmn:association id="Association_1uhbp2u" associationDirection="None" sourceRef="Activity_computeTotalCost" targetRef="TextAnnotation_1x8g9h4" />
   </bpmn:process>
+  <bpmn:message id="Message_3p39c64" name="Message_Inventory">
+    <bpmn:extensionElements>
+      <zeebe:subscription correlationKey="=1001" />
+    </bpmn:extensionElements>
+  </bpmn:message>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_Order">
       <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="StartEvent_1" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
@@ -215,6 +238,30 @@
         <dc:Bounds x="540" y="300" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1a8hesl_di" bpmnElement="Activity_1a8hesl" isExpanded="true">
+        <dc:Bounds x="320" y="460" width="680" height="270" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1g627sy_di" bpmnElement="Event_1g627sy" bioc:stroke="#831311" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#831311">
+        <dc:Bounds x="722" y="572" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1er07ld_di" bpmnElement="Activity_dbstore" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
+        <dc:Bounds x="540" y="550" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0jjmbq0_di" bpmnElement="Event_Inventory" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
+        <dc:Bounds x="392" y="572" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="389" y="615" width="46" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1hyxiba_di" bpmnElement="Flow_1hyxiba">
+        <di:waypoint x="428" y="590" />
+        <di:waypoint x="540" y="590" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1pgqbzo_di" bpmnElement="Flow_1pgqbzo">
+        <di:waypoint x="640" y="590" />
+        <di:waypoint x="722" y="590" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="TextAnnotation_125aotg_di" bpmnElement="TextAnnotation_125aotg" bioc:stroke="#5b176d" bioc:fill="#e1bee7" color:background-color="#e1bee7" color:border-color="#5b176d">
         <dc:Bounds x="932" y="139" width="100" height="41" />
         <bpmndi:BPMNLabel />
