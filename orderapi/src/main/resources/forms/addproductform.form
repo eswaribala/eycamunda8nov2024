@@ -79,7 +79,7 @@
       "id": "Field_1xgwj3g",
       "key": "checkbox_continue",
       "validate": {
-        "required": true
+        "required": false
       }
     }
   ],
