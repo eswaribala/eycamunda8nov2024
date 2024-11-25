@@ -1,0 +1,3 @@
+docker run --name postgrescliq -e POSTGRES_PASSWORD=postgres -d postgres
+
+docker exec -it <id> psql -U postgres
