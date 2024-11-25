@@ -376,10 +376,10 @@
         <bpmn:incoming>Flow_15e4xey</bpmn:incoming>
       </bpmn:endEvent>
       <bpmn:sequenceFlow id="Flow_15e4xey" name="Stock Status Available" sourceRef="Gateway_0bj4t6m" targetRef="Event_0aarxiy">
-        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=isStock=true</bpmn:conditionExpression>
+        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=StockStatus=true</bpmn:conditionExpression>
       </bpmn:sequenceFlow>
       <bpmn:sequenceFlow id="Flow_0p3bujm" name="Stock Status Not Available" sourceRef="Gateway_0bj4t6m" targetRef="Event_StockNotAvailable">
-        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=isStock=false</bpmn:conditionExpression>
+        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=StockStatus=false</bpmn:conditionExpression>
       </bpmn:sequenceFlow>
       <bpmn:endEvent id="Event_StockNotAvailable" name="Stock Not Available Error">
         <bpmn:incoming>Flow_0p3bujm</bpmn:incoming>
