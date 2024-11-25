@@ -1,3 +1,7 @@
+
+docker container stop <id>
+docker container rm <id>
+
 docker run --name postgrescliq  -h 127.0.0.1 -p 5432:5432  -e POSTGRES_PASSWORD=postgres -d postgres
 
 docker exec -it <id> psql -U postgres
