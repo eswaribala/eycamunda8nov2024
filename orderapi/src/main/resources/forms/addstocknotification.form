@@ -1,7 +1,7 @@
 {
   "components": [
     {
-      "label": "Cofirm To Save",
+      "label": "Notify the seller",
       "type": "checkbox",
       "layout": {
         "row": "Row_01xhdyo",
