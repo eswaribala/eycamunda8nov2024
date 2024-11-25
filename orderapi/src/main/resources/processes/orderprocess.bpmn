@@ -179,6 +179,88 @@
   },
   "schemaVersion": 17
 }</zeebe:userTaskForm>
+      <zeebe:userTaskForm id="UserTaskForm_3t5gupl">{
+  "components": [
+    {
+      "text": "Add Items To Cart",
+      "type": "text",
+      "layout": {
+        "row": "Row_1bf9ncu",
+        "columns": null
+      },
+      "id": "Field_094xsqp"
+    },
+    {
+      "label": "Select The Product",
+      "values": [
+        {
+          "label": "TV",
+          "value": "TV"
+        },
+        {
+          "label": "Washing Machine",
+          "value": "Washing Machine"
+        },
+        {
+          "label": "Camera",
+          "value": "Camera"
+        }
+      ],
+      "type": "select",
+      "layout": {
+        "row": "Row_0er7f8d",
+        "columns": null
+      },
+      "id": "Field_09congt",
+      "key": "stock_product_id",
+      "defaultValue": "TV",
+      "searchable": false,
+      "readonly": false,
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "label": "Enter Stock Quantity",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1ff454r",
+        "columns": null
+      },
+      "id": "Field_19hkrh2",
+      "key": "stock_quantity",
+      "defaultValue": "0",
+      "validate": {
+        "required": true,
+        "minLength": 1,
+        "maxLength": 2,
+        "pattern": "[0-9]{1,2}"
+      }
+    },
+    {
+      "label": "Confirm The Selection",
+      "type": "checkbox",
+      "layout": {
+        "row": "Row_1qajklc",
+        "columns": null
+      },
+      "id": "Field_0oqzod6",
+      "key": "checkbox_confirm",
+      "validate": {
+        "required": true
+      }
+    }
+  ],
+  "type": "default",
+  "id": "Form_Cart",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.6.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.29.0"
+  },
+  "schemaVersion": 17
+}</zeebe:userTaskForm>
     </bpmn:extensionElements>
     <bpmn:startEvent id="StartEvent_1" name="Start">
       <bpmn:outgoing>Flow_0d193cq</bpmn:outgoing>
@@ -341,6 +423,7 @@
       <bpmn:userTask id="Activity_AddStockNotification" name="Add Stock Notification">
         <bpmn:extensionElements>
           <zeebe:assignmentDefinition assignee="demo" />
+          <zeebe:formDefinition formKey="camunda-forms:bpmn:UserTaskForm_3t5gupl" />
         </bpmn:extensionElements>
         <bpmn:incoming>Flow_19vgi4p</bpmn:incoming>
         <bpmn:outgoing>Flow_09a001a</bpmn:outgoing>
