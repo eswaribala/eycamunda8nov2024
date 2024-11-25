@@ -1,5 +1,6 @@
 package com.ey.orderapi.configurations;
 
+import com.ey.orderapi.exceptions.StockQtyNotAvailable;
 import com.ey.orderapi.services.StockService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -75,11 +76,11 @@ public class StockConfiguration {
         Map<Long, Boolean> stockAvailableMap=new HashMap<>();
         for (Map<String, Object> item : items) {
             System.out.println("productId: " + item.get("productId"));
-             stockObj=stockService.isStockAvailable(Long.parseLong(item.get("productId").toString()));
-             if(stockObj!=null)
-                 stockAvailableMap.put(stockObj.getProductId(),true);
-             else
-                 stockAvailableMap.put(stockObj.getProductId(),false);
+            long productId=Long.parseLong(item.get("productId").toString());
+            if(checkAvailability(productId))
+                stockAvailableMap.put(productId,true);
+            else
+                stockAvailableMap.put(productId,false);
         }
 
        List<Boolean> failures= stockAvailableMap.entrySet().stream().filter(entryset->entryset.getValue()==false)
@@ -102,6 +103,22 @@ public class StockConfiguration {
        return stockAvailableStatusMap;
 
     }
+
+     private boolean checkAvailability(long productId){
+        Stock stockObj=null;
+        boolean status=false;
+         try {
+         stockObj=stockService.isStockAvailable(productId);
+
+             if (stockObj != null)
+                 status=true;
+
+         }catch (StockQtyNotAvailable ex){
+             status=false;
+         }
+
+         return status;
+     }
 
 
 }
