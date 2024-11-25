@@ -27,24 +27,55 @@ public class StockConfiguration {
     private StockService stockService;
 
     @JobWorker(type = "storeStock",autoComplete = false)
-    public Map<String,Boolean> addStockConfiguration(final JobClient jobClient, ActivatedJob activatedJob){
+    public Map<String,Boolean> addStockConfiguration(final JobClient jobClient, ActivatedJob activatedJob) throws JsonProcessingException {
           Map<String,Object> activatedMap=activatedJob.getVariablesAsMap();
           Stock stock=new Stock();
         Faker faker=new Faker();
-          stock.setProductId(Long.parseLong(activatedMap.get("stock_product_id").toString()));
-          stock.setAvailableQty(Long.parseLong(activatedMap.get("stock_quantity").toString()));
-          stock.setLocation(faker.address().city());
-          Stock stockObj=stockService.addStock(stock);
-          Map<String, Boolean> mapStatus=new HashMap<>();
-           if(stockObj!=null) {
-               mapStatus.put("StockStatus", true);
-               jobClient.newCompleteCommand(activatedJob.getKey())
-                       .variables(mapStatus)
-                       .send()
-                       .exceptionally((throwable) -> {
-                           throw new RuntimeException("Job not found");
-                       });
-           }
+        ObjectMapper objectMapper=new ObjectMapper();
+        String variablesJson = activatedJob.getVariables();
+
+        // Deserialize variables to a Map
+        Map<String, Object> variables = objectMapper.readValue(variablesJson, new TypeReference<>() {});
+
+        // Read the "items" variable (array of JSON objects)
+        List<Map<String, Object>> items = (List<Map<String, Object>>) variables.get("products");
+
+        Map<String, Boolean> mapStatus=new HashMap<>();
+
+        for (Map<String, Object> item : items) {
+            System.out.println("productId: " + item.get("productId"));
+            long productId = Long.parseLong(item.get("productId").toString());
+            stock.setProductId(Long.parseLong(item.get("productId").toString()));
+            long qty=Long.parseLong(activatedMap.get("stock_quantity").toString());
+            if(qty>0)
+             stock.setAvailableQty(qty);
+            else
+                stock.setAvailableQty(new Faker().number().numberBetween(100L,1000L));
+            stock.setLocation(faker.address().city());
+            Stock stockObj = stockService.addStock(stock);
+            if (stockObj != null) {
+                mapStatus.put("StockStatus", true);
+            }
+            else {
+                mapStatus.put("StockStatus", false);
+            }
+        }
+
+            List<Boolean> successes= mapStatus.entrySet().stream().filter(entryset->entryset.getValue()==true)
+                    .map(entrySet->entrySet.getValue())
+                    .collect(Collectors.toList());
+
+            if(successes.size()>0){
+
+                jobClient.newCompleteCommand(activatedJob.getKey())
+                        .variables(mapStatus)
+                        .send()
+                        .exceptionally((throwable) -> {
+                            throw new RuntimeException("Job not found");
+                        });
+
+            }
+
            else{
                jobClient.newCompleteCommand(activatedJob.getKey())
 
