@@ -405,12 +405,8 @@
           <zeebe:formDefinition formKey="camunda-forms:bpmn:UserTaskForm_3k7b9kl" />
         </bpmn:extensionElements>
         <bpmn:incoming>Flow_0glaqn3</bpmn:incoming>
-        <bpmn:outgoing>Flow_035uf0j</bpmn:outgoing>
+        <bpmn:outgoing>Flow_0ifovi4</bpmn:outgoing>
       </bpmn:userTask>
-      <bpmn:endEvent id="Event_1s4vxm2">
-        <bpmn:incoming>Flow_035uf0j</bpmn:incoming>
-      </bpmn:endEvent>
-      <bpmn:sequenceFlow id="Flow_035uf0j" sourceRef="Activity_AddStock" targetRef="Event_1s4vxm2" />
       <bpmn:sequenceFlow id="Flow_19vgi4p" sourceRef="Event_12ixptp" targetRef="Activity_AddStockNotification" />
       <bpmn:sequenceFlow id="Flow_09a001a" sourceRef="Activity_AddStockNotification" targetRef="Event_Mail_Escalation" />
       <bpmn:endEvent id="Event_Mail_Escalation" name="Escalate Mail">
@@ -434,6 +430,18 @@
           <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R3/PT1M</bpmn:timeCycle>
         </bpmn:timerEventDefinition>
       </bpmn:boundaryEvent>
+      <bpmn:sequenceFlow id="Flow_0ifovi4" sourceRef="Activity_AddStock" targetRef="Activity_StoreStock" />
+      <bpmn:serviceTask id="Activity_StoreStock" name="Store Stock">
+        <bpmn:extensionElements>
+          <zeebe:taskDefinition type="storeStock" />
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_0ifovi4</bpmn:incoming>
+        <bpmn:outgoing>Flow_1wxx2pc</bpmn:outgoing>
+      </bpmn:serviceTask>
+      <bpmn:endEvent id="Event_14g94jx">
+        <bpmn:incoming>Flow_1wxx2pc</bpmn:incoming>
+      </bpmn:endEvent>
+      <bpmn:sequenceFlow id="Flow_1wxx2pc" sourceRef="Activity_StoreStock" targetRef="Event_14g94jx" />
     </bpmn:subProcess>
     <bpmn:sequenceFlow id="Flow_0g1ozsc" sourceRef="Event_StockNotAvailableCaptureEvent" targetRef="Activity_0n0vkdy" />
     <bpmn:endEvent id="Event_07hvf7u">
@@ -602,18 +610,22 @@
         <dc:Bounds x="1950" y="640" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_1s4vxm2_di" bpmnElement="Event_1s4vxm2" bioc:stroke="#831311" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#831311">
-        <dc:Bounds x="2112" y="662" width="36" height="36" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_09yk1zc_di" bpmnElement="Event_Mail_Escalation" bioc:stroke="#831311" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#831311">
-        <dc:Bounds x="2222" y="782" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="2208" y="825" width="66" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0u7o2ku_di" bpmnElement="Activity_AddStockNotification" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
         <dc:Bounds x="2070" y="760" width="100" height="80" />
         <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0cqhgj8_di" bpmnElement="Activity_StoreStock" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
+        <dc:Bounds x="2110" y="640" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_14g94jx_di" bpmnElement="Event_14g94jx" bioc:stroke="#831311" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#831311">
+        <dc:Bounds x="2272" y="662" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_09yk1zc_di" bpmnElement="Event_Mail_Escalation" bioc:stroke="#831311" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#831311">
+        <dc:Bounds x="2272" y="782" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2258" y="825" width="66" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1rs9q3y_di" bpmnElement="Event_12ixptp" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
         <dc:Bounds x="1982" y="702" width="36" height="36" />
@@ -625,10 +637,6 @@
         <di:waypoint x="1896" y="680" />
         <di:waypoint x="1950" y="680" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_035uf0j_di" bpmnElement="Flow_035uf0j">
-        <di:waypoint x="2050" y="680" />
-        <di:waypoint x="2112" y="680" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_19vgi4p_di" bpmnElement="Flow_19vgi4p">
         <di:waypoint x="2000" y="738" />
         <di:waypoint x="2000" y="800" />
@@ -636,7 +644,15 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_09a001a_di" bpmnElement="Flow_09a001a">
         <di:waypoint x="2170" y="800" />
-        <di:waypoint x="2222" y="800" />
+        <di:waypoint x="2272" y="800" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ifovi4_di" bpmnElement="Flow_0ifovi4">
+        <di:waypoint x="2050" y="680" />
+        <di:waypoint x="2110" y="680" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1wxx2pc_di" bpmnElement="Flow_1wxx2pc">
+        <di:waypoint x="2210" y="680" />
+        <di:waypoint x="2272" y="680" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Event_1iw81vy_di" bpmnElement="Event_StockNotAvailableCaptureEvent" bioc:stroke="#831311" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#831311">
         <dc:Bounds x="1662" y="442" width="36" height="36" />
