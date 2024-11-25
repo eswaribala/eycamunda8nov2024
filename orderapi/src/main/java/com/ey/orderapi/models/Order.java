@@ -9,13 +9,13 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDate;
 
 @Entity
-@Table(name="Order")
+@Table(name="WebStore_Order")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class Order {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "Order_Id")
     private long orderId;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)

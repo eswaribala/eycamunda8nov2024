@@ -14,9 +14,9 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public Order addOrder(Order order) {
 
-        if(order.getOrderId()>0) {
+        if(order.getOrderId()>=0) {
            return orderRepository.save(order);
         }else
-            throw new OrderIdException("OrderId should be > 0");
+            throw new OrderIdException("OrderId should be >= 0");
     }
 }

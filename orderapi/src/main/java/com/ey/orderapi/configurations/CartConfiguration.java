@@ -1,7 +1,7 @@
 package com.ey.orderapi.configurations;
 
 
-import com.ey.orderapi.dtos.Product;
+import com.ey.orderapi.dtos.ProductDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,20 +26,20 @@ public class CartConfiguration {
    // private ZeebeClient zeebeClient;
     private static Map<String,Object> map;
 
-    private static List<Product>listOfProducts=new ArrayList<>();
+    private static List<ProductDTO>listOfProducts=new ArrayList<>();
 
     private static long sequence=1;
 
     @JobWorker(type = "storeInArray", autoComplete = false)
-    public Map<String,List<Product>> handleCartStorage(final JobClient jobClient,ActivatedJob activatedJob){
+    public Map<String,List<ProductDTO>> handleCartStorage(final JobClient jobClient,ActivatedJob activatedJob){
 
         map=activatedJob.getVariablesAsMap();
-        Map<String,List<Product>> productsMap=new HashMap<>();
+        Map<String,List<ProductDTO>> productsMap=new HashMap<>();
         map.entrySet().stream().forEach((entryset)->{
             System.out.println(entryset.getKey()+","+entryset.getValue());
         });
 
-        Product product=new Product();
+        ProductDTO product=new ProductDTO();
         product.setProductId(sequence);
         product.setProductName(map.get("select_product").toString());
         product.setQty(Long.parseLong(map.get("textfield_quantity").toString()));
@@ -103,6 +103,7 @@ public class CartConfiguration {
           return computedCostMap;
 
     }
+
 
 
 

@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,7 +17,7 @@ import java.util.Map;
 @Slf4j
 public class JobConfiguration {
     //@Autowired
-   // private ZeebeClient zeebeClient;
+   //private ZeebeClient zeebeClient;
     private Map<String,Object> map;
     @JobWorker(type = "generateOrderId",autoComplete = false)
     public Map<String,Long> handleOrderIdGeneration(final JobClient jobClient, ActivatedJob activatedJob){
@@ -38,8 +39,10 @@ public class JobConfiguration {
        map= activatedJob.getVariablesAsMap();
        String orderId=map.get("OrderId").toString();
        log.info("Generated Order No"+orderId);
-        jobClient.newCompleteCommand(activatedJob.getKey())
 
+
+        jobClient.newCompleteCommand(activatedJob.getKey())
+                .variables(map)
                 .send()
                 .exceptionally((throwable)->{
                     throw new RuntimeException("Job not found");
