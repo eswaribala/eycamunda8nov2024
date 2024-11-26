@@ -41,14 +41,15 @@ public class StockConfiguration {
         List<Map<String, Object>> items = (List<Map<String, Object>>) variables.get("products");
 
         Map<String, Boolean> mapStatus=new HashMap<>();
-
+        long qty=0;
         for (Map<String, Object> item : items) {
             System.out.println("productId: " + item.get("productId"));
             long productId = Long.parseLong(item.get("productId").toString());
             stock.setProductId(Long.parseLong(item.get("productId").toString()));
-            long qty=Long.parseLong(activatedMap.get("stock_quantity").toString());
-            if(qty>0)
-             stock.setAvailableQty(qty);
+            if(activatedMap.get("stock_quantity").toString()!=null) {
+                qty = Long.parseLong(activatedMap.get("stock_quantity").toString());
+                stock.setAvailableQty(qty);
+            }
             else
                 stock.setAvailableQty(new Faker().number().numberBetween(100L,1000L));
             stock.setLocation(faker.address().city());
