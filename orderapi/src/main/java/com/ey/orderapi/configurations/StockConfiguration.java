@@ -153,4 +153,18 @@ public class StockConfiguration {
      }
 
 
+     @JobWorker(type = "showOffer",autoComplete = false)
+     public void showOffers(final JobClient jobClient, ActivatedJob activatedJob){
+        Map<String,Object> activatedMapData=activatedJob.getVariablesAsMap();
+        log.info("Offer="+activatedMapData.get("offer"));
+        log.info("Level"+activatedMapData.get("level"));
+
+         jobClient.newCompleteCommand(activatedJob.getKey())
+
+                 .send()
+                 .exceptionally((throwable)->{
+                     throw new RuntimeException("Job not found");
+                 });
+     }
+
 }
