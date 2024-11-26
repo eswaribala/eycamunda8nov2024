@@ -1,0 +1,62 @@
+{
+  "components": [
+    {
+      "text": "Add Product To Cart",
+      "type": "text",
+      "layout": {
+        "row": "Row_19z9ea9",
+        "columns": null
+      },
+      "id": "Field_1dpdv9n"
+    },
+    {
+      "label": "ProductName",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_06qxjf9",
+        "columns": null
+      },
+      "id": "Field_09s4u6j",
+      "key": "productName"
+    },
+    {
+      "label": "Qty",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_01hqnfo",
+        "columns": null
+      },
+      "id": "Field_02zzwpl",
+      "key": "qty"
+    },
+    {
+      "label": "Price",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1mubd60",
+        "columns": null
+      },
+      "id": "Field_1d3abvc",
+      "key": "price"
+    },
+    {
+      "label": "Is Today Your Birthday",
+      "type": "checkbox",
+      "layout": {
+        "row": "Row_14ihsy3",
+        "columns": null
+      },
+      "id": "Field_0y4si3y",
+      "key": "isTodayDOB"
+    }
+  ],
+  "type": "default",
+  "id": "Form_0xwqwcx",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.6.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.29.0"
+  },
+  "schemaVersion": 17
+}

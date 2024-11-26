@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:color="http://www.omg.org/spec/BPMN/non-normative/color/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1sighhl" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.29.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.6.0">
+  <bpmn:process id="Process_05drz8j" isExecutable="true">
+    <bpmn:extensionElements>
+      <zeebe:userTaskForm id="UserTaskForm_0aol7rq">{
+  "components": [
+    {
+      "text": "Add Product To Cart",
+      "type": "text",
+      "layout": {
+        "row": "Row_19z9ea9",
+        "columns": null
+      },
+      "id": "Field_1dpdv9n"
+    },
+    {
+      "label": "ProductName",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_06qxjf9",
+        "columns": null
+      },
+      "id": "Field_09s4u6j",
+      "key": "productName"
+    },
+    {
+      "label": "Qty",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_01hqnfo",
+        "columns": null
+      },
+      "id": "Field_02zzwpl",
+      "key": "qty"
+    },
+    {
+      "label": "Price",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1mubd60",
+        "columns": null
+      },
+      "id": "Field_1d3abvc",
+      "key": "price"
+    },
+    {
+      "label": "Is Today Your Birthday",
+      "type": "checkbox",
+      "layout": {
+        "row": "Row_14ihsy3",
+        "columns": null
+      },
+      "id": "Field_0y4si3y",
+      "key": "isTodayDOB"
+    }
+  ],
+  "type": "default",
+  "id": "Form_0xwqwcx",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.6.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.29.0"
+  },
+  "schemaVersion": 17
+}</zeebe:userTaskForm>
+    </bpmn:extensionElements>
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_0no1e47</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_0no1e47" sourceRef="StartEvent_1" targetRef="Activity_AddProductToCart" />
+    <bpmn:userTask id="Activity_AddProductToCart" name="Add Product To Cart">
+      <bpmn:extensionElements>
+        <zeebe:assignmentDefinition assignee="demo" />
+        <zeebe:formDefinition formKey="camunda-forms:bpmn:UserTaskForm_0aol7rq" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0no1e47</bpmn:incoming>
+      <bpmn:outgoing>Flow_0hpd7f6</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_0hpd7f6" sourceRef="Activity_AddProductToCart" targetRef="Activity_OfferDecision" />
+    <bpmn:businessRuleTask id="Activity_OfferDecision" name="Offer Decision">
+      <bpmn:extensionElements>
+        <zeebe:calledDecision decisionId="Decision_Offer" resultVariable="offer" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0hpd7f6</bpmn:incoming>
+      <bpmn:outgoing>Flow_1k797fu</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+    <bpmn:sequenceFlow id="Flow_1k797fu" sourceRef="Activity_OfferDecision" targetRef="Activity_ShowOffer" />
+    <bpmn:endEvent id="Event_02a9mka">
+      <bpmn:incoming>Flow_0pzwcb3</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0pzwcb3" sourceRef="Activity_ShowOffer" targetRef="Event_02a9mka" />
+    <bpmn:serviceTask id="Activity_ShowOffer" name="Show Offer ">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="showOffer" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1k797fu</bpmn:incoming>
+      <bpmn:outgoing>Flow_0pzwcb3</bpmn:outgoing>
+    </bpmn:serviceTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_05drz8j">
+      <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="StartEvent_1" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
+        <dc:Bounds x="182" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_04s1j4k_di" bpmnElement="Activity_AddProductToCart" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="270" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_07i55z9_di" bpmnElement="Activity_OfferDecision" bioc:stroke="#5b176d" bioc:fill="#e1bee7" color:background-color="#e1bee7" color:border-color="#5b176d">
+        <dc:Bounds x="430" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_02a9mka_di" bpmnElement="Event_02a9mka" bioc:stroke="#831311" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#831311">
+        <dc:Bounds x="752" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1r6fnwt_di" bpmnElement="Activity_ShowOffer" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
+        <dc:Bounds x="590" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0no1e47_di" bpmnElement="Flow_0no1e47">
+        <di:waypoint x="218" y="120" />
+        <di:waypoint x="270" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0hpd7f6_di" bpmnElement="Flow_0hpd7f6">
+        <di:waypoint x="370" y="120" />
+        <di:waypoint x="430" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1k797fu_di" bpmnElement="Flow_1k797fu">
+        <di:waypoint x="530" y="120" />
+        <di:waypoint x="590" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0pzwcb3_di" bpmnElement="Flow_0pzwcb3">
+        <di:waypoint x="690" y="120" />
+        <di:waypoint x="752" y="120" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
