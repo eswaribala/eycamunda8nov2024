@@ -21,23 +21,27 @@
     },
     {
       "label": "Qty",
-      "type": "textfield",
+      "type": "number",
       "layout": {
-        "row": "Row_01hqnfo",
+        "row": "Row_17tg7r7",
         "columns": null
       },
-      "id": "Field_02zzwpl",
-      "key": "qty"
+      "id": "Field_1ho118f",
+      "key": "qty",
+      "defaultValue": 0,
+      "increment": "1"
     },
     {
       "label": "Price",
-      "type": "textfield",
+      "type": "number",
       "layout": {
-        "row": "Row_1mubd60",
+        "row": "Row_01no590",
         "columns": null
       },
-      "id": "Field_1d3abvc",
-      "key": "price"
+      "id": "Field_1u4p9y1",
+      "key": "price",
+      "defaultValue": 0,
+      "increment": "100"
     },
     {
       "label": "Is Today Your Birthday",
