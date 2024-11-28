@@ -1,0 +1,23 @@
+{
+  "components": [
+    {
+      "label": "Notify the seller",
+      "type": "checkbox",
+      "layout": {
+        "row": "Row_01xhdyo",
+        "columns": null
+      },
+      "id": "Field_02mfi2q",
+      "key": "checkbox_Confirm_Save"
+    }
+  ],
+  "type": "default",
+  "id": "Form_0iqmohe",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.6.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.29.0"
+  },
+  "schemaVersion": 17
+}

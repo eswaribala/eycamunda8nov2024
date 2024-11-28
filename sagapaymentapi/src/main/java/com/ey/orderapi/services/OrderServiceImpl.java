@@ -19,6 +19,4 @@ public class OrderServiceImpl implements OrderService{
         }else
             throw new OrderIdException("OrderId should be >= 0");
     }
-
-
 }

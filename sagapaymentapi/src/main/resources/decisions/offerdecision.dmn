@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_OfferCheck" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.29.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.6.0">
+  <decision id="Decision_Offer" name="Offer Decision">
+    <decisionTable id="DecisionTable_1h5swnn" hitPolicy="FIRST">
+      <input id="Input_1">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text>productName</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_0t8u9dn">
+          <text>"TV","Camera"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_0yd0xri">
+        <inputExpression id="LiteralExpression_0g8k9lo" typeRef="number">
+          <text>qty</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_14pqi47">
+        <inputExpression id="LiteralExpression_0wqm6ou" typeRef="number">
+          <text>price</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_19hsncs">
+        <inputExpression id="LiteralExpression_0mx39xx" typeRef="boolean">
+          <text>isTodayDOB</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" name="offer" typeRef="number" />
+      <rule id="DecisionRule_0luur3g">
+        <inputEntry id="UnaryTests_1fdd1gq">
+          <text>"TV"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ik2gfs">
+          <text>[10..100]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1g1zmr7">
+          <text>[30000..400000]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1sorw8g">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1budlwc">
+          <text>0.15</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1ax1srh">
+        <inputEntry id="UnaryTests_0hcstza">
+          <text>"Camera"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1dlkxwn">
+          <text>[10..150]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1rsmrlz">
+          <text>[100000..1000000]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ndn8go">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0egtjvt">
+          <text>0.20</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0by0pch">
+        <inputEntry id="UnaryTests_07r4wd3">
+          <text>"TV"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0xw89i3">
+          <text>[10..100]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_06olcky">
+          <text>[100000..1000000]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1gqgix1">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0hj1695">
+          <text>0.10</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0n0qytb">
+        <inputEntry id="UnaryTests_1xogzbl">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1t6wek9">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0twqufl">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1c146sw">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0ocb2hl">
+          <text>0</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="Decision_Offer">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>
