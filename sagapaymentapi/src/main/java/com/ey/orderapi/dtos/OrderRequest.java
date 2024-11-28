@@ -4,12 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductDTO {
-    private long productId;
-    private String productName;
-    private long qty;
+public class OrderRequest {
 
+    private LocalDate orderDate;
+    private long orderAmount;
 }

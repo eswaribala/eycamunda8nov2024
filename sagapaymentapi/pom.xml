@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.ey</groupId>
-    <artifactId>orderapi</artifactId>
+    <artifactId>sagapaymentrapi</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>orderapi</name>
-    <description>orderapi</description>
+    <name>sagapaymentapi</name>
+    <description>sagapaymentapi</description>
     <url/>
     <licenses>
         <license/>
@@ -59,12 +59,7 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-  <!--camunda -->
-        <dependency>
-            <groupId>io.camunda</groupId>
-            <artifactId>spring-boot-starter-camunda-sdk</artifactId>
-            <version>8.6.5</version>
-        </dependency>
+
         <!--swagger-->
         <dependency>
             <groupId>org.springdoc</groupId>
@@ -111,20 +106,11 @@
             <version>20240303</version>
         </dependency>-->
 
-        <!--mysql-->
+
+
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-       <!-- <dependency>
-            <groupId>com.mysql</groupId>
-            <artifactId>mysql-connector-j</artifactId>
-            <scope>runtime</scope>
-        </dependency>-->
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <scope>runtime</scope>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
         </dependency>
 
 

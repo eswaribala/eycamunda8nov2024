@@ -45,12 +45,12 @@ public class KafkaPublishConfiguration {
         Map<String, Object> item = (Map<String, Object>) variables.get("Order");
           long orderId=Long.parseLong(item.get("orderId").toString());
         long orderAmount=Long.parseLong(item.get("orderAmount").toString());
-       // LocalDate orderDate=LocalDate.parse(item.get("orderDate").toString());
+        LocalDate orderDate=LocalDate.parse(item.get("orderDate").toString());
 
         Order order=Order.builder()
                 .orderId(orderId)
                 .orderAmount(orderAmount)
-               // .orderDate(LocalDate.now())
+               .orderDate(orderDate)
                 .build();
 
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
