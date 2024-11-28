@@ -43,7 +43,6 @@ public class OrderPublishingController {
             zeebeClient
                     .newCreateInstanceCommand()
                     .bpmnProcessId(ProcessConstant.BPMN_PROCESS_ID)
-
                     .latestVersion()
                     .variables(mappedInstance)
                     .send();
