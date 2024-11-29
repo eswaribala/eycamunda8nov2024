@@ -1,0 +1,6 @@
+Open powershell, run
+
+wsl -d docker-desktop
+then
+
+sysctl -w vm.max_map_count=262144
