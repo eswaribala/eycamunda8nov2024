@@ -12,14 +12,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;
 
 import java.time.LocalDate;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 @Configuration
 @Slf4j
@@ -32,7 +30,7 @@ public class KafkaPublishConfiguration {
     private String topicName;
 
     @JobWorker(type = "kafkaPublish",autoComplete = false)
-    public Map<String,String> publishOrder(final JobClient jobClient, ActivatedJob activatedJob) throws JsonProcessingException {
+    public CompletableFuture<Map<String, String>> publishOrder(final JobClient jobClient, ActivatedJob activatedJob) throws JsonProcessingException {
 
 
         ObjectMapper objectMapper=new ObjectMapper();
@@ -56,20 +54,23 @@ public class KafkaPublishConfiguration {
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
         String json = ow.writeValueAsString(order);
         Map<String,String> kafkaResult=new HashMap<>();
-        kafkaTemplate.send(topicName,json);
+       return kafkaTemplate.send(topicName,json).thenApply(result-> {
+           kafkaResult.put("result", result.getRecordMetadata().topic() + "," +
+                   result.getRecordMetadata().partition());
+           kafkaResult.put("result", "published....");
+           jobClient.newCompleteCommand(activatedJob.getKey())
+                   .variables(kafkaResult)
+                   .send()
+                   .exceptionally((throwable) -> {
+                       throw new RuntimeException("Job not found");
+                   });
+           return kafkaResult;
 
-         kafkaResult.put("result","published....");
-        jobClient.newCompleteCommand(activatedJob.getKey())
-                .variables(kafkaResult)
-                .send()
-                .exceptionally((throwable)->{
-                    throw new RuntimeException("Job not found");
-                });
-
-         return kafkaResult;
-
-
-
+       }).exceptionally(ex-> {
+            kafkaResult.put("result",ex.getMessage());
+            return kafkaResult;
+        });
 
     }
+
 }

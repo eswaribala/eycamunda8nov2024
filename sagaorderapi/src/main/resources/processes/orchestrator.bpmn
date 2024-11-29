@@ -5,17 +5,39 @@
       <bpmn:outgoing>Flow_1378mbb</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:sequenceFlow id="Flow_1378mbb" sourceRef="StartEvent_1" targetRef="Activity_Kafka_Publish" />
-    <bpmn:endEvent id="Event_15xergl">
-      <bpmn:incoming>Flow_0ofxrej</bpmn:incoming>
-    </bpmn:endEvent>
-    <bpmn:sequenceFlow id="Flow_0ofxrej" sourceRef="Activity_Kafka_Publish" targetRef="Event_15xergl" />
     <bpmn:serviceTask id="Activity_Kafka_Publish" name="Kafkka Publisher">
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="kafkaPublish" />
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1378mbb</bpmn:incoming>
-      <bpmn:outgoing>Flow_0ofxrej</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0jhyv0v</bpmn:outgoing>
     </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_0jhyv0v" sourceRef="Activity_Kafka_Publish" targetRef="Gateway_0pf3hrx" />
+    <bpmn:eventBasedGateway id="Gateway_0pf3hrx">
+      <bpmn:incoming>Flow_0jhyv0v</bpmn:incoming>
+      <bpmn:outgoing>Flow_1ae03v6</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1qzie01</bpmn:outgoing>
+    </bpmn:eventBasedGateway>
+    <bpmn:intermediateCatchEvent id="Event_1vq3pte">
+      <bpmn:incoming>Flow_1ae03v6</bpmn:incoming>
+      <bpmn:outgoing>Flow_13a2cea</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_021hocq" messageRef="Message_2t1rmqe" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:sequenceFlow id="Flow_1ae03v6" sourceRef="Gateway_0pf3hrx" targetRef="Event_1vq3pte" />
+    <bpmn:intermediateCatchEvent id="Event_115p0la">
+      <bpmn:incoming>Flow_1qzie01</bpmn:incoming>
+      <bpmn:outgoing>Flow_0yb6s7q</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0qkc6gl" messageRef="Message_2pf681l" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:sequenceFlow id="Flow_1qzie01" sourceRef="Gateway_0pf3hrx" targetRef="Event_115p0la" />
+    <bpmn:endEvent id="Event_1m2yxqw">
+      <bpmn:incoming>Flow_13a2cea</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_13a2cea" sourceRef="Event_1vq3pte" targetRef="Event_1m2yxqw" />
+    <bpmn:endEvent id="Event_1mqqoke">
+      <bpmn:incoming>Flow_0yb6s7q</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0yb6s7q" sourceRef="Event_115p0la" targetRef="Event_1mqqoke" />
   </bpmn:process>
   <bpmn:message id="Message_2t1rmqe" name="Message_Success">
     <bpmn:extensionElements>
@@ -31,21 +53,51 @@
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_Ecommerce">
       <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="StartEvent_1">
-        <dc:Bounds x="182" y="102" width="36" height="36" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_15xergl_di" bpmnElement="Event_15xergl">
-        <dc:Bounds x="422" y="102" width="36" height="36" />
+        <dc:Bounds x="182" y="162" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1agb4ks_di" bpmnElement="Activity_Kafka_Publish" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
-        <dc:Bounds x="270" y="80" width="100" height="80" />
+        <dc:Bounds x="270" y="140" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1uexr49_di" bpmnElement="Gateway_0pf3hrx">
+        <dc:Bounds x="425" y="155" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1vq3pte_di" bpmnElement="Event_1vq3pte" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
+        <dc:Bounds x="532" y="82" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_115p0la_di" bpmnElement="Event_115p0la" bioc:stroke="#831311" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#831311">
+        <dc:Bounds x="532" y="252" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1m2yxqw_di" bpmnElement="Event_1m2yxqw" bioc:stroke="#831311" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#831311">
+        <dc:Bounds x="632" y="82" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1mqqoke_di" bpmnElement="Event_1mqqoke" bioc:stroke="#831311" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#831311">
+        <dc:Bounds x="632" y="252" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1378mbb_di" bpmnElement="Flow_1378mbb">
-        <di:waypoint x="218" y="120" />
-        <di:waypoint x="270" y="120" />
+        <di:waypoint x="218" y="180" />
+        <di:waypoint x="270" y="180" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0ofxrej_di" bpmnElement="Flow_0ofxrej">
-        <di:waypoint x="370" y="120" />
-        <di:waypoint x="422" y="120" />
+      <bpmndi:BPMNEdge id="Flow_0jhyv0v_di" bpmnElement="Flow_0jhyv0v">
+        <di:waypoint x="370" y="180" />
+        <di:waypoint x="425" y="180" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ae03v6_di" bpmnElement="Flow_1ae03v6">
+        <di:waypoint x="450" y="155" />
+        <di:waypoint x="450" y="100" />
+        <di:waypoint x="532" y="100" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1qzie01_di" bpmnElement="Flow_1qzie01">
+        <di:waypoint x="450" y="205" />
+        <di:waypoint x="450" y="270" />
+        <di:waypoint x="532" y="270" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_13a2cea_di" bpmnElement="Flow_13a2cea">
+        <di:waypoint x="568" y="100" />
+        <di:waypoint x="632" y="100" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0yb6s7q_di" bpmnElement="Flow_0yb6s7q">
+        <di:waypoint x="568" y="270" />
+        <di:waypoint x="632" y="270" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
