@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:color="http://www.omg.org/spec/BPMN/non-normative/color/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0tk0wug" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.15.2" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.2.0">
+  <bpmn:process id="Process_Loan_V5" name="Loan Process" isExecutable="true">
+    <bpmn:extensionElements>
+      <zeebe:userTaskForm id="userTaskForm_335q44s">{
+  "components": [
+    {
+      "text": "Loan Application Form",
+      "label": "Text view",
+      "type": "text",
+      "layout": {
+        "row": "Row_155s1yp",
+        "columns": null
+      },
+      "id": "Field_0x8p8j2"
+    },
+    {
+      "label": "Loan Application No",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1ql1pcs",
+        "columns": null
+      },
+      "id": "Field_1lsth8v",
+      "key": "loanApplicationNo",
+      "readonly": true
+    },
+    {
+      "label": "First Name",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0w84mz9",
+        "columns": null
+      },
+      "id": "Field_0glpbnp",
+      "key": "firstName",
+      "validate": {
+        "required": true,
+        "minLength": 5,
+        "maxLength": 25,
+        "pattern": "[A-Za-z]{5,25}"
+      }
+    },
+    {
+      "label": "Last Name",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1jz7gj0",
+        "columns": null
+      },
+      "id": "Field_1llzei4",
+      "key": "lastName",
+      "validate": {
+        "required": true,
+        "minLength": 5,
+        "maxLength": 25
+      }
+    },
+    {
+      "subtype": "date",
+      "dateLabel": "DOB",
+      "label": "Date time",
+      "type": "datetime",
+      "layout": {
+        "row": "Row_13nkhp3",
+        "columns": null
+      },
+      "id": "Field_13h1ath",
+      "key": "dob",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "values": [
+        {
+          "label": "Male",
+          "value": "male"
+        },
+        {
+          "label": "Female",
+          "value": "female"
+        },
+        {
+          "label": "Transgender",
+          "value": "transgender"
+        }
+      ],
+      "label": "Select Gender",
+      "type": "radio",
+      "layout": {
+        "row": "Row_02hc626",
+        "columns": null
+      },
+      "id": "Field_0n98rwr",
+      "key": "gender",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "values": [
+        {
+          "label": "Public",
+          "value": "public"
+        },
+        {
+          "label": "Private",
+          "value": "private"
+        },
+        {
+          "label": "Government",
+          "value": "government"
+        },
+        {
+          "label": "Self Employed Professional",
+          "value": "self employed professional"
+        }
+      ],
+      "label": "Occupation",
+      "type": "select",
+      "layout": {
+        "row": "Row_119gs0o",
+        "columns": null
+      },
+      "id": "Field_0sr0goy",
+      "key": "occupation",
+      "searchable": true,
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "label": "CIBIL Score",
+      "type": "number",
+      "layout": {
+        "row": "Row_1hcqvvb",
+        "columns": null
+      },
+      "id": "Field_0okhc76",
+      "key": "cibilScore",
+      "increment": "50",
+      "decimalDigits": 0,
+      "validate": {
+        "required": true,
+        "min": 100,
+        "max": 900
+      }
+    },
+    {
+      "label": "Having Own House?",
+      "type": "checkbox",
+      "layout": {
+        "row": "Row_1c12viv",
+        "columns": null
+      },
+      "id": "Field_1yuqqn2",
+      "key": "ownHouse",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "label": "Background Status",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1v1wsqb",
+        "columns": null
+      },
+      "id": "Field_082tia6",
+      "key": "bgStatus",
+      "defaultValue": "true",
+      "readonly": true
+    },
+    {
+      "label": "Is Everything Correct?",
+      "type": "checkbox",
+      "layout": {
+        "row": null,
+        "columns": null
+      },
+      "id": "Field_1uyxpi8",
+      "key": "confirm",
+      "validate": {
+        "required": true
+      }
+    }
+  ],
+  "type": "default",
+  "id": "Form_0fukhua",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.2.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.15.2"
+  },
+  "schemaVersion": 10
+}</zeebe:userTaskForm>
+    </bpmn:extensionElements>
+    <bpmn:startEvent id="Event_1x3hjdo">
+      <bpmn:outgoing>Flow_1o0ekxn</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1o0ekxn" sourceRef="Event_1x3hjdo" targetRef="Activity_RandomNumber" />
+    <bpmn:serviceTask id="Activity_RandomNumber" name="Generate Loan Application No">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="random_number_task" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1o0ekxn</bpmn:incoming>
+      <bpmn:outgoing>Flow_1mpoggt</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_1mpoggt" sourceRef="Activity_RandomNumber" targetRef="Activity_1fzrra3" />
+    <bpmn:serviceTask id="Activity_1fzrra3" name="Show the Generated Application No in Background job">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="show_generated_application_no" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1mpoggt</bpmn:incoming>
+      <bpmn:outgoing>Flow_1u4dm7y</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_1u4dm7y" sourceRef="Activity_1fzrra3" targetRef="Activity_08fy8ln" />
+    <bpmn:userTask id="Activity_08fy8ln" name="Fill the Loan Application">
+      <bpmn:extensionElements>
+        <zeebe:formDefinition formKey="camunda-forms:bpmn:userTaskForm_335q44s" />
+        <zeebe:assignmentDefinition assignee="demo" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1u4dm7y</bpmn:incoming>
+      <bpmn:incoming>Flow_0xsrlz2</bpmn:incoming>
+      <bpmn:outgoing>Flow_1uan6c0</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_1uan6c0" sourceRef="Activity_08fy8ln" targetRef="Activity_0oxaowf" />
+    <bpmn:serviceTask id="Activity_0oxaowf" name="Check the Applicant&#39;s Age greater than 21?">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="check_age" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1uan6c0</bpmn:incoming>
+      <bpmn:outgoing>Flow_0l4p08e</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="Gateway_1hm1fl1">
+      <bpmn:incoming>Flow_0l4p08e</bpmn:incoming>
+      <bpmn:outgoing>Flow_0xsrlz2</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1ts2fw8</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_0l4p08e" sourceRef="Activity_0oxaowf" targetRef="Gateway_1hm1fl1" />
+    <bpmn:sequenceFlow id="Flow_0xsrlz2" sourceRef="Gateway_1hm1fl1" targetRef="Activity_08fy8ln">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=checkdob=false</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1ts2fw8" sourceRef="Gateway_1hm1fl1" targetRef="Activity_063vxyc">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=checkdob=true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0lllfsx" sourceRef="Activity_063vxyc" targetRef="Event_1fyarjo" />
+    <bpmn:businessRuleTask id="Activity_063vxyc" name="Loan Accepted or Rejected?">
+      <bpmn:extensionElements>
+        <zeebe:calledDecision decisionId="Decision_DSS_V1" resultVariable="decision" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1ts2fw8</bpmn:incoming>
+      <bpmn:outgoing>Flow_0lllfsx</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+    <bpmn:endEvent id="Event_1fyarjo" name="Loan Decision Message">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="loan_decision_message" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0lllfsx</bpmn:incoming>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0e7tg0y" />
+    </bpmn:endEvent>
+    <bpmn:textAnnotation id="TextAnnotation_0zlj60k">
+      <bpmn:text>Back End Will Generate Loan Application using random number gen</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0z7i4zc" sourceRef="Activity_RandomNumber" targetRef="TextAnnotation_0zlj60k" />
+    <bpmn:textAnnotation id="TextAnnotation_1svhczt">
+      <bpmn:text>true</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="TextAnnotation_0efyzxb">
+      <bpmn:text>false</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0djchth" sourceRef="Flow_0xsrlz2" targetRef="TextAnnotation_0efyzxb" />
+    <bpmn:textAnnotation id="TextAnnotation_0rrgrmd">
+      <bpmn:text>Displays Generated no in background code</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_12ahnsd" sourceRef="Activity_1fzrra3" targetRef="TextAnnotation_0rrgrmd" />
+    <bpmn:textAnnotation id="TextAnnotation_1ms49wr">
+      <bpmn:text>Customer will fill the loan application form</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_19q3m1j" sourceRef="Activity_08fy8ln" targetRef="TextAnnotation_1ms49wr" />
+  </bpmn:process>
+  <bpmn:message id="Message_3p1qq37" name="Message_LoanDoc" />
+  <bpmn:message id="Message_1d7giov" name="message_received">
+    <bpmn:extensionElements>
+      <zeebe:subscription correlationKey="=1" />
+    </bpmn:extensionElements>
+  </bpmn:message>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_Loan_V5">
+      <bpmndi:BPMNShape id="Event_1x3hjdo_di" bpmnElement="Event_1x3hjdo" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
+        <dc:Bounds x="152" y="202" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_01yqj6o_di" bpmnElement="Activity_RandomNumber" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
+        <dc:Bounds x="240" y="180" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1ls3ndg_di" bpmnElement="Activity_1fzrra3" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
+        <dc:Bounds x="390" y="180" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_00sjghj_di" bpmnElement="Activity_08fy8ln" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="570" y="180" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1wmmlhs_di" bpmnElement="Activity_0oxaowf" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
+        <dc:Bounds x="740" y="180" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1hm1fl1_di" bpmnElement="Gateway_1hm1fl1" isMarkerVisible="true" bioc:stroke="#831311" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#831311">
+        <dc:Bounds x="915" y="195" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_09ko1fe_di" bpmnElement="Activity_063vxyc" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
+        <dc:Bounds x="1040" y="180" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0we3kmj_di" bpmnElement="Event_1fyarjo" bioc:stroke="#831311" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#831311">
+        <dc:Bounds x="1222" y="202" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1206" y="245" width="70" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_0zlj60k_di" bpmnElement="TextAnnotation_0zlj60k" bioc:stroke="#5b176d" bioc:fill="#e1bee7" color:background-color="#e1bee7" color:border-color="#5b176d">
+        <dc:Bounds x="220" y="80" width="190" height="34" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1svhczt_di" bpmnElement="TextAnnotation_1svhczt" bioc:stroke="#5b176d" bioc:fill="#e1bee7" color:background-color="#e1bee7" color:border-color="#5b176d">
+        <dc:Bounds x="970" y="170" width="100" height="30" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_0efyzxb_di" bpmnElement="TextAnnotation_0efyzxb" bioc:stroke="#5b176d" bioc:fill="#e1bee7" color:background-color="#e1bee7" color:border-color="#5b176d">
+        <dc:Bounds x="730" y="40" width="100" height="30" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_0rrgrmd_di" bpmnElement="TextAnnotation_0rrgrmd" bioc:stroke="#5b176d" bioc:fill="#e1bee7" color:background-color="#e1bee7" color:border-color="#5b176d">
+        <dc:Bounds x="420" y="62" width="100" height="70" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1ms49wr_di" bpmnElement="TextAnnotation_1ms49wr" bioc:stroke="#5b176d" bioc:fill="#e1bee7" color:background-color="#e1bee7" color:border-color="#5b176d">
+        <dc:Bounds x="580" y="310" width="100" height="55" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1o0ekxn_di" bpmnElement="Flow_1o0ekxn">
+        <di:waypoint x="188" y="220" />
+        <di:waypoint x="240" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1mpoggt_di" bpmnElement="Flow_1mpoggt">
+        <di:waypoint x="340" y="220" />
+        <di:waypoint x="390" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1u4dm7y_di" bpmnElement="Flow_1u4dm7y">
+        <di:waypoint x="490" y="220" />
+        <di:waypoint x="570" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1uan6c0_di" bpmnElement="Flow_1uan6c0">
+        <di:waypoint x="670" y="220" />
+        <di:waypoint x="740" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0l4p08e_di" bpmnElement="Flow_0l4p08e">
+        <di:waypoint x="840" y="220" />
+        <di:waypoint x="915" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0xsrlz2_di" bpmnElement="Flow_0xsrlz2">
+        <di:waypoint x="940" y="195" />
+        <di:waypoint x="940" y="90" />
+        <di:waypoint x="620" y="90" />
+        <di:waypoint x="620" y="180" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ts2fw8_di" bpmnElement="Flow_1ts2fw8">
+        <di:waypoint x="965" y="220" />
+        <di:waypoint x="1040" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0lllfsx_di" bpmnElement="Flow_0lllfsx">
+        <di:waypoint x="1140" y="220" />
+        <di:waypoint x="1222" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0z7i4zc_di" bpmnElement="Association_0z7i4zc">
+        <di:waypoint x="302" y="180" />
+        <di:waypoint x="322" y="114" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0djchth_di" bpmnElement="Association_0djchth">
+        <di:waypoint x="787.5" y="90" />
+        <di:waypoint x="783" y="70" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_12ahnsd_di" bpmnElement="Association_12ahnsd">
+        <di:waypoint x="448" y="180" />
+        <di:waypoint x="458" y="132" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_19q3m1j_di" bpmnElement="Association_19q3m1j">
+        <di:waypoint x="624" y="260" />
+        <di:waypoint x="629" y="310" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

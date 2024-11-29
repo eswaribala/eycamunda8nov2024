@@ -1,0 +1,194 @@
+{
+  "components": [
+    {
+      "text": "Loan Application Form",
+      "label": "Text view",
+      "type": "text",
+      "layout": {
+        "row": "Row_155s1yp",
+        "columns": null
+      },
+      "id": "Field_0x8p8j2"
+    },
+    {
+      "label": "Loan Application No",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1ql1pcs",
+        "columns": null
+      },
+      "id": "Field_1lsth8v",
+      "key": "loanApplicationNo",
+      "readonly": true
+    },
+    {
+      "label": "First Name",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0w84mz9",
+        "columns": null
+      },
+      "id": "Field_0glpbnp",
+      "key": "firstName",
+      "validate": {
+        "required": true,
+        "minLength": 5,
+        "maxLength": 25,
+        "pattern": "[A-Za-z]{5,25}"
+      }
+    },
+    {
+      "label": "Last Name",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1jz7gj0",
+        "columns": null
+      },
+      "id": "Field_1llzei4",
+      "key": "lastName",
+      "validate": {
+        "required": true,
+        "minLength": 5,
+        "maxLength": 25
+      }
+    },
+    {
+      "subtype": "date",
+      "dateLabel": "DOB",
+      "label": "Date time",
+      "type": "datetime",
+      "layout": {
+        "row": "Row_13nkhp3",
+        "columns": null
+      },
+      "id": "Field_13h1ath",
+      "key": "dob",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "values": [
+        {
+          "label": "Male",
+          "value": "male"
+        },
+        {
+          "label": "Female",
+          "value": "female"
+        },
+        {
+          "label": "Transgender",
+          "value": "transgender"
+        }
+      ],
+      "label": "Select Gender",
+      "type": "radio",
+      "layout": {
+        "row": "Row_02hc626",
+        "columns": null
+      },
+      "id": "Field_0n98rwr",
+      "key": "gender",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "values": [
+        {
+          "label": "Public",
+          "value": "public"
+        },
+        {
+          "label": "Private",
+          "value": "private"
+        },
+        {
+          "label": "Government",
+          "value": "government"
+        },
+        {
+          "label": "Self Employed Professional",
+          "value": "self employed professional"
+        }
+      ],
+      "label": "Occupation",
+      "type": "select",
+      "layout": {
+        "row": "Row_119gs0o",
+        "columns": null
+      },
+      "id": "Field_0sr0goy",
+      "key": "occupation",
+      "searchable": true,
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "label": "CIBIL Score",
+      "type": "number",
+      "layout": {
+        "row": "Row_1hcqvvb",
+        "columns": null
+      },
+      "id": "Field_0okhc76",
+      "key": "cibilScore",
+      "increment": "50",
+      "decimalDigits": 0,
+      "validate": {
+        "required": true,
+        "min": 100,
+        "max": 900
+      }
+    },
+    {
+      "label": "Having Own House?",
+      "type": "checkbox",
+      "layout": {
+        "row": "Row_1c12viv",
+        "columns": null
+      },
+      "id": "Field_1yuqqn2",
+      "key": "ownHouse",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "label": "Background Status",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1v1wsqb",
+        "columns": null
+      },
+      "id": "Field_082tia6",
+      "key": "bgStatus",
+      "defaultValue": "\"true\"",
+      "readonly": true
+    },
+    {
+      "label": "Is Everything Correct?",
+      "type": "checkbox",
+      "layout": {
+        "row": null,
+        "columns": null
+      },
+      "id": "Field_1uyxpi8",
+      "key": "confirm",
+      "validate": {
+        "required": true
+      }
+    }
+  ],
+  "type": "default",
+  "id": "Form_0fukhua",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.2.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.15.2"
+  },
+  "schemaVersion": 10
+}
