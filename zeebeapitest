@@ -1,0 +1,9 @@
+https://login.cloud.camunda.io/oauth/token
+
+client_id='V__54JcdPlCAULUhS2DkUaI0OgrTbgGG'
+client_secret='0OCJyKq.GQGa_H6h7-ioUeNUMvJpSHbbhLj6FJej4C0MvbgBC.fWA8ej_ghofJGS'
+
+audience=zeebe.camunda.io
+
+
+https://sin-1.zeebe.camunda.io:443/7952082d-4604-4a35-b248-58fc9df57155/v2/topology
