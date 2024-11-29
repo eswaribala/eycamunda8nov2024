@@ -20,4 +20,6 @@ audience=operate.camunda.io
 post
 https://sin-1.operate.camunda.io:443/7952082d-4604-4a35-b248-58fc9df57155/v1/process-definitions/search
 
+get
+https://sin-1.operate.camunda.io:443/7952082d-4604-4a35-b248-58fc9df57155/v1/process-definitions/2251799813686268
 
