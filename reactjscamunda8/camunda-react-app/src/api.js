@@ -1,16 +1,17 @@
 import axios from 'axios';
 import getAccessToken from './auth';
 
-const camundaApiBaseURL = 'https://sin-1.zeebe.camunda.io/7952082d-4604-4a35-b248-58fc9df57155/v1';
+const camundaApiBaseURL = 'https://sin-1.operate.camunda.io:443/7952082d-4604-4a35-b248-58fc9df57155/v1';
 
-const startProcessInstance = async (processDefinitionKey) => {
+const startProcessInstance = async (processDefinitionKey, variables) => {
     const token = await getAccessToken();
-
+     console.log(token)
     try {
         const response = await axios.post(
-            `${camundaApiBaseURL}/process-instances`,
+            `${camundaApiBaseURL}/process-definitions/search`,
             {
-                processDefinitionKey
+                processDefinitionKey,
+                variables,
             },
             {
                 headers: {

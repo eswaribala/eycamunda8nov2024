@@ -22,6 +22,7 @@ async function main() {
     console.log(
         `[Zeebe] Deployed process ${deploy.deployments[0].process.bpmnProcessId}`
     );
+    
 }
 
 main(); // remember to invoke the function

@@ -8,8 +8,8 @@ const StartProcess = () => {
 
     const handleStartProcess = async () => {
         try {
-            //const variablesObject = JSON.parse(variables); // Ensure variables are in JSON format
-            const result = await startProcessInstance(processKey);
+            const variablesObject = JSON.parse(variables); // Ensure variables are in JSON format
+            const result = await startProcessInstance(processKey, variablesObject);
             setResponse(result);
         } catch (error) {
             console.error('Failed to start process instance:', error);
@@ -26,7 +26,11 @@ const StartProcess = () => {
                 value={processKey}
                 onChange={(e) => setProcessKey(e.target.value)}
             />
-
+            <textarea
+                placeholder="Variables (JSON format)"
+                value={variables}
+                onChange={(e) => setVariables(e.target.value)}
+            />
             <button onClick={handleStartProcess}>Start Process</button>
 
             {response && (

@@ -41,7 +41,7 @@ public class PaymentListener {
         System.out.println(paymentInfo);
         Map<String,PaymentRequest> paymentRequestMap=new HashMap<>();
         paymentRequestMap.put("PaymentInfo",paymentInfo);
-        if(paymentInfo!=null) {
+        if(paymentInfo.getAmount()>500) {
             zeebeClient.newPublishMessageCommand()
                     .messageName("Message_Success")
                     .correlationKey("3001")
